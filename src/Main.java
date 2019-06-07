@@ -8,10 +8,6 @@ public class Main {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) { e.printStackTrace();}
-        //MainWindow mainWindow = new MainWindow("Business Records");
-        Records records = new Records();
-
-        String json = records.toJson();
-        System.out.println(json);
+        MainWindow mainWindow = new MainWindow("Business Records");
     }
 }

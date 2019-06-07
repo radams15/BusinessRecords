@@ -1,8 +1,14 @@
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Formatter {
+
+    static String dateFormat = "dd/MM/yyyy";
+    private static SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
+
     static String money(double cost){
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         return formatter.format(cost);
@@ -23,6 +29,18 @@ public class Formatter {
             return format.parse(money.replaceAll("[^\\d.,]", "")).doubleValue();
         }catch(ParseException e){
             return 0;
+        }
+    }
+
+    static String dateToText(Date date){
+        return dateFormatter.format(date);
+    }
+
+    static Date textToDate(String text){
+        try {
+            return dateFormatter.parse(text);
+        }catch(ParseException e){
+            return new Date();
         }
     }
 }

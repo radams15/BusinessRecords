@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class JobViewWindow extends JDialog {
     private JPanel mainPanel;
@@ -115,17 +116,19 @@ public class JobViewWindow extends JDialog {
             double cost = Formatter.moneyToDouble(window.costField.getText());
             double time = Double.valueOf(window.timeField.getText());
 
+            Date date = window.datePicker.getDate();
+
+
             Job newJob = new Job(customer,
                     window.descriptionBox.getText(),
                     cost,
                     time,
-                    window.dateField.getText()
+                    Formatter.dateToText(date)
             );
             records.addJob(newJob);
             update();
         }
     }
-
 
     private void editJob(int id){
         Job job = records.getJob(id);
@@ -138,21 +141,22 @@ public class JobViewWindow extends JDialog {
         window.pack();
         window.setVisible(true);
 
-        Customer newCustomer = (Customer) window.customerBox.getSelectedItem();
-        double cost = Formatter.moneyToDouble(window.costField.getText());
-        double time = Double.valueOf(window.timeField.getText());
-
-        Job newJob = new Job(
-                newCustomer,
-                window.descriptionBox.getText(),
-                cost,
-                time,
-                window.dateField.getText()
-        );
-
         if(window.complete){ // ok pressed
-            records.deleteJob(job);
-            records.addJob(newJob);
+            Customer newCustomer = (Customer) window.customerBox.getSelectedItem();
+            double cost = Formatter.moneyToDouble(window.costField.getText());
+            double time = Double.valueOf(window.timeField.getText());
+
+            Date date = window.datePicker.getDate();
+
+            Job newJob = new Job(
+                    newCustomer,
+                    window.descriptionBox.getText(),
+                    cost,
+                    time,
+                    Formatter.dateToText(date)
+            );
+                records.deleteJob(job);
+                records.addJob(newJob);
         }
 
         update();
